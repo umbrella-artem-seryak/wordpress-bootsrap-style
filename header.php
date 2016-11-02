@@ -16,7 +16,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="http://gmpg.org/xfn/11">
 
-<?php wp_head(); ?>
+<?php wp_head();
+
+wp_enqueue_style( 'slider', get_template_directory_uri() . '/bootstrap/css/bootstrap.css');
+?>
 </head>
 
 <body <?php body_class(); ?>>
