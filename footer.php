@@ -17,7 +17,7 @@
 		<div class="site-info">
 			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'bootstrap-theme' ) ); ?>"><?php printf( esc_html__( 'Proudly powered by %s', 'bootstrap-theme' ), 'WordPress' ); ?></a>
 			<span class="sep"> | </span>
-			<?php printf( esc_html__( 'Theme: %1$s by %2$s.', 'bootstrap-theme' ), 'bootstrap-theme', '<a href="http://underscores.me/" rel="designer">Underscores.me</a>' ); ?>
+			<?php printf( esc_html__( 'Theme: %1$s by %2$s.', 'bootstrap-theme' ), 'bootstrap-theme', 'Artyom Seriak' ); ?>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
 </div><!-- #page -->

@@ -1,1 +1,4 @@
 js/**.min.js
+.vagrant/
+Vagrantfile
+.idea/
