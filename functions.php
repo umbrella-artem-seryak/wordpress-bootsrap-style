@@ -8,63 +8,63 @@
  */
 
 if ( ! function_exists( 'bootstrap_theme_setup' ) ) :
-/**
- * Sets up theme defaults and registers support for various WordPress features.
- *
- * Note that this function is hooked into the after_setup_theme hook, which
- * runs before the init hook. The init hook is too late for some features, such
- * as indicating support for post thumbnails.
- */
-function bootstrap_theme_setup() {
-	/*
-	 * Make theme available for translation.
-	 * Translations can be filed in the /languages/ directory.
-	 * If you're building a theme based on bootstrap-theme, use a find and replace
-	 * to change 'bootstrap-theme' to the name of your theme in all the template files.
-	 */
-	load_theme_textdomain( 'bootstrap-theme', get_template_directory() . '/languages' );
-
-	// Add default posts and comments RSS feed links to head.
-	add_theme_support( 'automatic-feed-links' );
-
-	/*
-	 * Let WordPress manage the document title.
-	 * By adding theme support, we declare that this theme does not use a
-	 * hard-coded <title> tag in the document head, and expect WordPress to
-	 * provide it for us.
-	 */
-	add_theme_support( 'title-tag' );
-
-	/*
-	 * Enable support for Post Thumbnails on posts and pages.
+	/**
+	 * Sets up theme defaults and registers support for various WordPress features.
 	 *
-	 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
+	 * Note that this function is hooked into the after_setup_theme hook, which
+	 * runs before the init hook. The init hook is too late for some features, such
+	 * as indicating support for post thumbnails.
 	 */
-	add_theme_support( 'post-thumbnails' );
+	function bootstrap_theme_setup() {
+		/*
+		 * Make theme available for translation.
+		 * Translations can be filed in the /languages/ directory.
+		 * If you're building a theme based on bootstrap-theme, use a find and replace
+		 * to change 'bootstrap-theme' to the name of your theme in all the template files.
+		 */
+		load_theme_textdomain( 'bootstrap-theme', get_template_directory() . '/languages' );
 
-	// This theme uses wp_nav_menu() in one location.
-	register_nav_menus( array(
-		'primary' => esc_html__( 'Primary', 'bootstrap-theme' ),
-	) );
+		// Add default posts and comments RSS feed links to head.
+		add_theme_support( 'automatic-feed-links' );
 
-	/*
-	 * Switch default core markup for search form, comment form, and comments
-	 * to output valid HTML5.
-	 */
-	add_theme_support( 'html5', array(
-		'search-form',
-		'comment-form',
-		'comment-list',
-		'gallery',
-		'caption',
-	) );
+		/*
+		 * Let WordPress manage the document title.
+		 * By adding theme support, we declare that this theme does not use a
+		 * hard-coded <title> tag in the document head, and expect WordPress to
+		 * provide it for us.
+		 */
+		add_theme_support( 'title-tag' );
 
-	// Set up the WordPress core custom background feature.
-	add_theme_support( 'custom-background', apply_filters( 'bootstrap_theme_custom_background_args', array(
-		'default-color' => 'ffffff',
-		'default-image' => '',
-	) ) );
-}
+		/*
+		 * Enable support for Post Thumbnails on posts and pages.
+		 *
+		 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
+		 */
+		add_theme_support( 'post-thumbnails' );
+
+		// This theme uses wp_nav_menu() in one location.
+		register_nav_menus( array(
+			'primary' => esc_html__( 'Primary', 'bootstrap-theme' ),
+		) );
+
+		/*
+		 * Switch default core markup for search form, comment form, and comments
+		 * to output valid HTML5.
+		 */
+		add_theme_support( 'html5', array(
+			'search-form',
+			'comment-form',
+			'comment-list',
+			'gallery',
+			'caption',
+		) );
+
+		// Set up the WordPress core custom background feature.
+		add_theme_support( 'custom-background', apply_filters( 'bootstrap_theme_custom_background_args', array(
+			'default-color' => 'ffffff',
+			'default-image' => '',
+		) ) );
+	}
 endif;
 add_action( 'after_setup_theme', 'bootstrap_theme_setup' );
 
@@ -78,6 +78,7 @@ add_action( 'after_setup_theme', 'bootstrap_theme_setup' );
 function bootstrap_theme_content_width() {
 	$GLOBALS['content_width'] = apply_filters( 'bootstrap_theme_content_width', 640 );
 }
+
 add_action( 'after_setup_theme', 'bootstrap_theme_content_width', 0 );
 
 /**
@@ -96,6 +97,7 @@ function bootstrap_theme_widgets_init() {
 		'after_title'   => '</h2>',
 	) );
 }
+
 add_action( 'widgets_init', 'bootstrap_theme_widgets_init' );
 
 /**
@@ -112,18 +114,79 @@ function bootstrap_theme_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
+
 add_action( 'wp_enqueue_scripts', 'bootstrap_theme_scripts' );
 
 /**
  * Replacing active li element (for the nav menu) css class here
  */
-add_filter( 'nav_menu_css_class' , 'special_nav_class' , 10 );
+add_filter( 'nav_menu_css_class', 'special_nav_class', 10 );
 
-function special_nav_class ($classes) {
-    if ( in_array( 'current-menu-item', $classes ) ) {
-        $classes[] = 'active ';
-    }
-    return $classes;
+function special_nav_class( $classes ) {
+	if ( in_array( 'current-menu-item', $classes ) ) {
+		$classes[] = 'active ';
+	}
+
+	return $classes;
+}
+
+/**
+ * Adding custom format for the comments.
+ */
+function custom_comment_format( $comment, $args, $depth ) {
+	$GLOBALS['comment'] = $comment;
+
+	?>
+
+	<article id="comment-<?php comment_ID(); ?>" class="comment-content">
+		<div class="media-body">
+
+			<footer class="comment-meta">
+				<div class="comment-meta pull-left">  <?php echo get_avatar( $comment, 48 ); ?> </div>
+				<div class="comment-author vcard">
+					<?php printf( __( '%s <span class="says sr-only">says:</span>' ), sprintf( '<b class="media-heading fn">%s</b>', get_comment_author_link( $comment ) ) ); ?>
+				</div><!-- /.comment-author -->
+
+				<div class="comment-metadata">
+					<a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
+						<time datetime="<?php comment_time( 'c' ); ?>">
+							<?php
+							/* translators: 1: comment date, 2: comment time */
+							printf( __( '%1$s at %2$s' ), get_comment_date( '', $comment ), get_comment_time() );
+							?>
+						</time>
+					</a>
+					<?php edit_comment_link( '<span class="glyphicon glyphicon-pencil"></span>' ); ?>
+				</div><!-- /.comment-metadata -->
+
+				<?php if ( '0' == $comment->comment_approved ) : ?>
+					<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.' ); ?></p>
+				<?php endif; ?>
+			</footer><!-- /.comment-meta -->
+
+			<div class="comment-content">
+				<?php comment_text(); ?>
+			</div><!-- /.comment-content -->
+
+			<?php comment_reply_link( array_merge( $args, array(
+				'reply_text' => __( '<button class="btn btn-default" type="button">Reply</button>' ),
+				'depth'      => $depth,
+				'max_depth'  => $args['max_depth']
+			) ) ); ?> 
+	</article>
+
+	<?php
+}
+
+/**
+ * Changing class of avatar image to use Bootstrap's class
+ */
+add_filter( 'get_avatar', 'add_gravatar_class' );
+
+function add_gravatar_class( $class ) {
+	$class = str_replace( "class='avatar", "class='img-rounded", $class );
+
+	return $class;
 }
 
 /**

@@ -52,6 +52,7 @@ if ( post_password_required() ) {
 				wp_list_comments( array(
 					'style'      => 'ol',
 					'short_ping' => true,
+                    'callback' => 'custom_comment_format',
 				) );
 			?>
 		</ol><!-- .comment-list -->
@@ -84,7 +85,7 @@ if ( post_password_required() ) {
 		// change the title of send button
 		'class_submit'      => 'btn btn-success',
 		// change the title of the reply section
-		'title_reply'=>'Write a Reply or Comment',
+		'title_reply'=>'<h3>Write a Reply or Comment</h3>',
 		// remove "Text or HTML to be displayed after the set of comment fields"
 		'comment_notes_after' => '',
 		// redefine your own textarea (the comment body)

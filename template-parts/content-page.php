@@ -35,7 +35,7 @@
 						the_title( '<span class="screen-reader-text">"', '"</span>', false )
 					),
 					'<span class="edit-link">',
-					'</span>'
+					'</span>', '', 'btn btn-warning'
 				);
 			?>
 		</footer><!-- .entry-footer -->
