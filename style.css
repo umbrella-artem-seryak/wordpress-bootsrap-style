@@ -374,10 +374,10 @@ hr {
 	margin-bottom: 1.5em;
 }
 
-ul,
+/*ul,
 ol {
 	margin: 0 0 1.5em 3em;
-}
+*/
 
 ul {
 	list-style: disc;
@@ -774,6 +774,15 @@ a:active {
 
 .bypostauthor {
 	display: block;
+}
+
+.comments-title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.comment-list {
+    padding-left: 20px;
 }
 
 /*--------------------------------------------------------------
