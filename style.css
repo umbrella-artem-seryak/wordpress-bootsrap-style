@@ -750,11 +750,13 @@ a:active {
 .page-content,
 .entry-content,
 .entry-summary {
-    margin: 1.5em 0 0;
+    margin: 1.5em 0;
 }
 
 .entry-footer {
     text-align: right;
+    height: 35px;
+    line-height: 35px;
 }
 
 .page-links {
@@ -766,9 +768,13 @@ a:active {
     color: #777b79;
 }
 
-/*--------------------------------------------------------------
-## Comments
---------------------------------------------------------------*/
+.cat-links a {
+    color: #777b79;
+}
+
+    /*--------------------------------------------------------------
+    ## Comments
+    --------------------------------------------------------------*/
 
 .comment-content a {
     word-wrap: break-word;

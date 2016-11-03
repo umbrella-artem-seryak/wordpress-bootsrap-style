@@ -49,7 +49,7 @@ function bootstrap_theme_entry_footer() {
 		/* translators: used between list items, there is a space after the comma */
 		$categories_list = get_the_category_list( esc_html__( ', ', 'bootstrap-theme' ) );
 		if ( $categories_list && bootstrap_theme_categorized_blog() ) {
-			printf( '<span class="cat-links">' . esc_html__( 'Posted in %1$s', 'bootstrap-theme' ) . '</span>', $categories_list ); // WPCS: XSS OK.
+			printf( '<span class="cat-links pull-left">' . esc_html__( '%1$s', 'bootstrap-theme' ) . '</span>', $categories_list ); // WPCS: XSS OK.
 		}
 
 		/* translators: used between list items, there is a space after the comma */
