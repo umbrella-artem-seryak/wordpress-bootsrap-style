@@ -94,6 +94,8 @@ if ( post_password_required() ) {
 		'comment_notes_after' => '',
 		// bootstrap class of the form
 		'class_form'          => 'form-group',
+		//Cancel reply button style
+		'cancel_reply_link' => __( '<button class="btn btn-default" type="button">Cancel Reply</button>' ),
 		// replacing standard fields for an anonymous comment here
 		'fields'              => apply_filters( 'comment_form_default_fields', array(
 
