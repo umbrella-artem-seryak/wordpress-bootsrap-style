@@ -772,7 +772,15 @@ a:active {
     color: #777b79;
 }
 
+.cat-links{
+    padding-right: 5px;
+}
+
 .cat-links a {
+    color: #777b79;
+}
+
+.tags-links a {
     color: #777b79;
 }
 
