@@ -128,17 +128,19 @@ add_action( 'widgets_init', 'bootstrap_theme_widgets_init' );
 /**
  * Enqueue scripts and styles.
  */
-function bootstrap_theme_scripts() {
-	wp_enqueue_style( 'bootstrap-theme-style', get_stylesheet_uri() );
+if ( ! function_exists( 'bootstrap_theme_scripts' ) ) :
+	function bootstrap_theme_scripts() {
+		wp_enqueue_style( 'bootstrap-theme-style', get_stylesheet_uri() );
 
-	wp_enqueue_script( 'bootstrap-theme-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
+		wp_enqueue_script( 'bootstrap-theme-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 
-	wp_enqueue_script( 'bootstrap-theme-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+		wp_enqueue_script( 'bootstrap-theme-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
+		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+			wp_enqueue_script( 'comment-reply' );
+		}
 	}
-}
+endif;
 
 add_action( 'wp_enqueue_scripts', 'bootstrap_theme_scripts' );
 
@@ -147,71 +149,75 @@ add_action( 'wp_enqueue_scripts', 'bootstrap_theme_scripts' );
  */
 add_filter( 'nav_menu_css_class', 'special_nav_class', 10 );
 
-function special_nav_class( $classes ) {
-	if ( in_array( 'current-menu-item', $classes ) ) {
-		$classes[] = 'active ';
-	}
+if ( ! function_exists( 'special_nav_class' ) ) :
+	function special_nav_class( $classes ) {
+		if ( in_array( 'current-menu-item', $classes ) ) {
+			$classes[] = 'active ';
+		}
 
-	return $classes;
-}
+		return $classes;
+	}
+endif;
 
 /**
  * Adding custom format for the comments.
  */
-function custom_comment_format( $comment, $args, $depth ) {
-	$GLOBALS['comment'] = $comment;
+if ( ! function_exists( 'custom_comment_format' ) ) :
+	function custom_comment_format( $comment, $args, $depth ) {
+		$GLOBALS['comment'] = $comment;
 
-	?>
+		?>
 
-	<article id="comment-<?php comment_ID(); ?>" class="comment-content">
-		<div class="media-body">
+		<article id="comment-<?php comment_ID(); ?>" class="comment-content">
+			<div class="media-body">
 
-			<footer class="comment-meta">
-				<div class="comment-meta pull-left">  <?php echo get_avatar( $comment, 48 ); ?> </div>
-				<div class="comment-author vcard">
-					<?php printf( __( '%s <span class="says sr-only">says:</span>' ), sprintf( '<b class="media-heading fn">%s</b>', get_comment_author_link( $comment ) ) ); ?>
-				</div><!-- /.comment-author -->
+				<footer class="comment-meta">
+					<div class="comment-meta pull-left">  <?php echo get_avatar( $comment, 48 ); ?> </div>
+					<div class="comment-author vcard">
+						<?php printf( __( '%s <span class="says sr-only">says:</span>' ), sprintf( '<b class="media-heading fn">%s</b>', get_comment_author_link( $comment ) ) ); ?>
+					</div><!-- /.comment-author -->
 
-				<div class="comment-metadata">
-					<a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
-						<time datetime="<?php comment_time( 'c' ); ?>">
-							<?php
-							/* translators: 1: comment date, 2: comment time */
-							printf( __( '%1$s at %2$s' ), get_comment_date( '', $comment ), get_comment_time() );
-							?>
-						</time>
-					</a>
-					<?php edit_comment_link( '<span class="glyphicon glyphicon-pencil"></span>' ); ?>
-				</div><!-- /.comment-metadata -->
+					<div class="comment-metadata">
+						<a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
+							<time datetime="<?php comment_time( 'c' ); ?>">
+								<?php
+								/* translators: 1: comment date, 2: comment time */
+								printf( __( '%1$s at %2$s' ), get_comment_date( '', $comment ), get_comment_time() );
+								?>
+							</time>
+						</a>
+						<?php edit_comment_link( '<span class="glyphicon glyphicon-pencil"></span>' ); ?>
+					</div><!-- /.comment-metadata -->
 
-				<?php if ( '0' == $comment->comment_approved ) : ?>
-					<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.' ); ?></p>
-				<?php endif; ?>
-			</footer><!-- /.comment-meta -->
+					<?php if ( '0' == $comment->comment_approved ) : ?>
+						<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.' ); ?></p>
+					<?php endif; ?>
+				</footer><!-- /.comment-meta -->
 
-			<div class="comment-content">
-				<?php comment_text(); ?>
-			</div><!-- /.comment-content -->
+				<div class="comment-content">
+					<?php comment_text(); ?>
+				</div><!-- /.comment-content -->
 
-			<?php comment_reply_link( array_merge( $args, array(
-				'reply_text' => __( '<button class="btn btn-default" type="button">Reply</button>' ),
-				'depth'      => $depth,
-				'max_depth'  => $args['max_depth']
-			) ) ); ?> 
-	</article>
+				<?php comment_reply_link( array_merge( $args, array(
+					'reply_text' => __( '<button class="btn btn-default" type="button">Reply</button>' ),
+					'depth'      => $depth,
+					'max_depth'  => $args['max_depth']
+				) ) ); ?> 
+		</article>
 
-	<?php
-}
+		<?php
+	}
+endif;
 
 /**
  * Changing class of avatar image to use Bootstrap's class
  */
 add_filter( 'get_avatar', 'add_gravatar_class' );
+if ( ! function_exists( 'add_gravatar_class' ) ) :
+	function add_gravatar_class( $class ) {
+		$class = str_replace( "class='avatar", "class='img-rounded", $class );
 
-function add_gravatar_class( $class ) {
-	$class = str_replace( "class='avatar", "class='img-rounded", $class );
-
-	return $class;
-}
-
+		return $class;
+	}
+endif;
 
