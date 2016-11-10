@@ -26,7 +26,9 @@ get_header(); ?>
 				?>
 			</article><!-- #post -->
 			<p>
-				<a class="btn btn-default" href="<?php echo esc_url( home_url( '/' ) . $pod_name) ?>"><span class="glyphicon glyphicon-chevron-left"></span><?php esc_html_e( 'Return to the books list', 'bootstrap-theme' ); ?></a>
+				<a class="btn btn-default" href="<?php echo esc_url( home_url( '/' ) . $pod_name ) ?>"><span
+						class="glyphicon glyphicon-chevron-left"></span><?php esc_html_e( 'Return to the books list', 'bootstrap-theme' ); ?>
+				</a>
 		</main>
 	</div>
 
